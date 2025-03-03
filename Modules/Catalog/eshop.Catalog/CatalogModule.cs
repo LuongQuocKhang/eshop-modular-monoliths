@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using eshop.Catalog.Data.Seed;
+using eshop.Shared.Data.Interceptor;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,9 +11,24 @@ public static class CatalogModule
     public static IServiceCollection AddCatalogModule(this IServiceCollection services, IConfiguration configuration)
     {
         // Add services to container
-        // services.AddApplicationServices(configuration)
-        //     .AddInfrastructureServices(configuration)
-        //     .AddApiServices(configuration);
+
+        // Api Endpoints services
+
+        // Application services
+
+        // Data - Infrastructure services
+        string connectionString = configuration.GetConnectionString("CatalogConnection")!;
+
+        services.AddDbContext<CatalogDbContext>(options =>
+        {
+            options.AddInterceptors(new AuditableEntityInterceptor());
+            options.UseNpgsql(connectionString);
+        });
+
+        // Data - Seed services
+
+        services.AddScoped< IDataSeeder, CatalogDataSeed>();
+
         return services;
     }
 
@@ -21,6 +38,12 @@ public static class CatalogModule
         // app.UseApplicationServices()
         //     .UseInfrastructureServices()
         //     .UseApiServices();
+
+
+        app.UseMigration<CatalogDbContext>();
+
         return app;
     }
+
+    
 }

@@ -47,3 +47,9 @@
 /Shared/eshop.Shared/bin/Debug/net9.0
 /Shared/eshop.Shared/obj
 *.htm
+/obj
+/Bootstrapper/eshop.Api/obj/Container
+/bin/Debug
+/.vs/ProjectEvaluation
+/Bootstrapper/eshop.Api/bin/Debug/net9.0/appsettings.Development.json
+/Bootstrapper/eshop.Api/obj/Debug/net9.0

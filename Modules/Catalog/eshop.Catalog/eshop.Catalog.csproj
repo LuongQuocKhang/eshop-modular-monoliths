@@ -10,8 +10,4 @@
       <ProjectReference Include="..\..\..\Shared\eshop.Shared\eshop.Shared.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data\" />
-    </ItemGroup>
-
 </Project>
